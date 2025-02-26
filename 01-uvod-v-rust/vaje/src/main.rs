@@ -7,28 +7,87 @@ use core::panic;
 /// Napišite funkcijo `fib`, ki sprejme začetna člena fibbonacijevega zaporedja, število `n` in vrne `n`-ti člen zaporedja
 
 fn fib(a0: u32, a1: u32, n: u32) -> u32 {
-    panic!("Not implemented");
+    if n == 0 {
+        return a0;
+    }
+    else if n == 1 {
+        return a1;
+    }
+    return fib(a1, a0 + a1, n-1);
+}
+
+fn fib2(a0: u32, a1: u32, n: u32) -> u32 {
+    let mut a = a0;
+    let mut b = a1;
+    for _ in 0..n {
+        let t = a + b;
+        a = b;
+        b = t;
+    }
+    return a;
 }
 
 /// ------------------------------------------------------------------------------------------------
 
 /// Napišite funkcijo `je_prestopno`, ki za podano leto preveri, ali je prestopno
-
+fn je_prestopno(leto:u32)-> bool {
+    if leto%100==0 {
+        if leto%400 == 0 {
+            return true;
+        }
+        else {return false;
+        }
+    }
+    else if leto%4==0 {
+        return true;
+    }
+    else {return false;
+    }
+}
 /// ------------------------------------------------------------------------------------------------
 
 /// Napišite funkcijo `je_veljaven_datum(datum: Date) -> bool`, ki preveri, ali je datum veljaven
 
 // Dan, mesec, leto
 type Date = (u32, u32, u32);
+fn je_veljaven_datum(datum: Date) -> bool {
+    let datum = (dan, mesec, leto);
+    if leto > 0 {
+        match mesec {
+            1|3|5|7|8|10|12 => 
+                if dan <= 31 {return true;
+                }
+                else {return false;},
+            2 => 
+                if je_prestopno(leto) {
+                    if dan <= 29 {return true;}
+                    else {return false;}
+                }
+                else {
+                    if dan <= 28 {return true;}
+                    else {return false;}
+                },
+            4|6|9|11 =>
+                if dan <= 30 {
+                    return true;
+                }
+                else {return false;},
+            _ => return false;
 
+        }
+    }
+    else {return false;
+    }
+    
+}
 /// ------------------------------------------------------------------------------------------------
 
 /// Napišite funkcijo `iteracija(mut start: u32, fun: fn(u32) -> u32, cond: fn(u32) -> bool) -> u32`, ki sprejme iteracijsko funkcijo, zaustavitveni pogoj in začetno vrednost.
 /// Iteracijsko funkcijo zaporedoma uporablja, dokler za rezultat ne velja zaustavitveni pogoj, in vrne prvi rezultat, ki zadošča zaustavitvenemu pogoju.
 
-fn iteracija(mut start: u32, fun: fn(u32) -> u32, cond: fn(u32) -> bool) -> u32 {
-    panic!("Not implemented");
-}
+// fn iteracija(mut start: u32, fun: fn(u32) -> u32, cond: fn(u32) -> bool) -> u32 {
+//     panic!("Not implemented");
+// }
 
 /// ------------------------------------------------------------------------------------------------
 
@@ -40,9 +99,9 @@ fn iteracija(mut start: u32, fun: fn(u32) -> u32, cond: fn(u32) -> bool) -> u32 
 /// 4. Če ni, izberemo nov interval [a, b] glede na predznak f(c)
 /// 5. Ponavljamo korake 2-4
 
-fn bisekcija(mut a: f64, mut b: f64, fun: fn(f64) -> f64, prec: f64) -> f64 {
-    panic!("Not implemented");
-}
+// fn bisekcija(mut a: f64, mut b: f64, fun: fn(f64) -> f64, prec: f64) -> f64 {
+//     panic!("Not implemented");
+// }
 
 /// ------------------------------------------------------------------------------------------------
 
@@ -50,32 +109,32 @@ fn bisekcija(mut a: f64, mut b: f64, fun: fn(f64) -> f64, prec: f64) -> f64 {
 /// Uporabnika sprašujemo po novi številki, vse dokler so števila, ki jih vpisuje del nekega aritmetičnega zaporedja
 /// Če uporabnik vpiše neveljavno število to ni napaka, program za pogoj aritmetičnega zaporedja upošteva samo veljavno vpisana števila.
 
-fn guessing_game() {
-    panic!("Not implemented");
-}
+// fn guessing_game() {
+//     panic!("Not implemented");
+// }
 
 /// ------------------------------------------------------------------------------------------------
 /// Napišite funkcijo `fn mat_mul(a: [[u32; 2]; 2], b: [[u32; 2]; 2]) -> [[u32; 2]; 2]`, ki matriki `a` in `b` zmnoži in vrne rezultat
 
-fn mat_mul(a: [[u32; 2]; 2], b: [[u32; 2]; 2]) -> [[u32; 2]; 2] {
-    panic!("Not implemented");
-}
+// fn mat_mul(a: [[u32; 2]; 2], b: [[u32; 2]; 2]) -> [[u32; 2]; 2] {
+//     panic!("Not implemented");
+// }
 
 /// ------------------------------------------------------------------------------------------------
 /// Napišite funkcijo `ordered`, ki sprejme tabelo števil in vrne `true`, če so števila urejena (padajoče ali naraščajoče) in `false` sicer.
 
-fn ordered(arr: &[u32]) -> bool {
-    panic!("Not implemented");
-}
+// fn ordered(arr: &[u32]) -> bool {
+//     panic!("Not implemented");
+// }
 
-fn vsebuje<T : PartialEq>(v: &Vec<T>, x : &T) -> bool {
-    for y in v {
-      if x == y {
-        return true
-      }
-    }
-    return false
-}
+// fn vsebuje<T : PartialEq>(v: &Vec<T>, x : &T) -> bool {
+//     for y in v {
+//       if x == y {
+//         return true
+//       }
+//     }
+//     return false
+// }
 
 /// ------------------------------------------------------------------------------------------------
 /// Hitro potenciranje
@@ -97,14 +156,14 @@ fn vsebuje<T : PartialEq>(v: &Vec<T>, x : &T) -> bool {
 /// Urejanje z izbiranjem
 /// Napišite funkcijo `fn selection_sort(arr: &mut [u32])`, ki uredi tabelo `arr` z uporabo algoritma urejanja z izbiranjem
 
-fn selection_sort(arr: &mut [u32]) {}
+// fn selection_sort(arr: &mut [u32]) {}
 
 /// ------------------------------------------------------------------------------------------------
 /// Napišite program, ki izpiše piramido višine `n` iz zvezdic
 
-fn pyramid(n: u32) {
-    panic!("Not implemented");
-}
+// fn pyramid(n: u32) {
+//     panic!("Not implemented");
+// }
 
 /// ------------------------------------------------------------------------------------------------
 /// Napišite program, ki izpiše piramido črk angleške abecede višine `n`, lahkom predpostavite, da bo n največ 26.
@@ -114,7 +173,10 @@ fn pyramid(n: u32) {
 /// A B C D C B A
 /// Napišite funkcijo `fn selection_sort(mut arr: [u32])`, ki uredi tabelo `arr` z uporabo algoritma urejanja z izbiranjem
 
-fn main() {}
+fn main() {
+    let a = je_prestopno(2024);
+    println!("Rezultat: {a}");
+}
 
 #[cfg(test)]
 mod tests {
